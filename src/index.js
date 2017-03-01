@@ -537,6 +537,7 @@ function propertyToPostgres(property, name, schema, isAlter) {
       }
       break;
     case 'object':
+      console.log('object');
     case void 0:
       return void 0;
     case 'array':
