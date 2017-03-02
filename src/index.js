@@ -2,6 +2,7 @@ var _ = require('lodash');
 var assert = require('assert');
 
 var utils = require('./utils');
+var _config;
 
 module.exports = jsonSchemaTable;
 
@@ -9,19 +10,19 @@ module.exports = jsonSchemaTable;
 //var log = function() {};
 
 function jsonSchemaTable(tableName, schema, config) {
-  config = config || {};
-  assert(config.db, 'Database connector not informed, should be one of: ' +
+  _config = config || {};
+  assert(_config.db, 'Database connector not informed, should be one of: ' +
     'mssql-cr-layer or pg-cr-layer');
   var dialect = {
-    db: config.db
+    db: _config.db
   };
-  if (config.db.dialect === 'mssql') {
-    dialect.datetime = config.datetime;
+  if (_config.db.dialect === 'mssql') {
+    dialect.datetime = _config.datetime;
     dialect.propertyToDb = propertyToMssql;
   } else {
     dialect.propertyToDb = propertyToPostgres;
   }
-  var connection = _.pick(config, ['user', 'password', 'database', 'host', 'port', 'schema']);
+  var connection = _.pick(_config, ['user', 'password', 'database', 'host', 'port', 'schema']);
   return {
     create: function() {
       return Promise.resolve()
@@ -537,7 +538,7 @@ function propertyToPostgres(property, name, schema, isAlter) {
       }
       break;
     case 'object':
-      jsonSchemaTable(name, property.properties, config);
+      jsonSchemaTable(name, property.properties, _config);
       return void 0;
     case void 0:
       return void 0;
