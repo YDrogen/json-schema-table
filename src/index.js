@@ -575,6 +575,7 @@ function postgresToProperty(metadata) {
     case 'integer':
     case 'text':
     case 'date':
+    case 'boolean':
       property.type = metadata.data_type;
       break;
     case 'time':
