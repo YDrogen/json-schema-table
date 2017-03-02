@@ -539,7 +539,7 @@ function propertyToPostgres(property, name, schema, isAlter) {
       break;
     case 'object':
       jsonSchemaTable(name, property, _config);
-      return void 0;
+      return column;
     case void 0:
       return void 0;
     case 'array':
