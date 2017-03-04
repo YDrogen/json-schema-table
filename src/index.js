@@ -540,6 +540,9 @@ function propertyToPostgres(property, name, schema, isAlter) {
     case 'boolean':
       column = 'BOOLEAN';
       break;
+    case 'jsonb':
+      column = 'JSONB';
+      break;
     case 'object':
     case void 0:
       return void 0;
@@ -576,6 +579,7 @@ function postgresToProperty(metadata) {
     case 'text':
     case 'date':
     case 'boolean':
+    case 'jsonb':
       property.type = metadata.data_type;
       break;
     case 'time':
